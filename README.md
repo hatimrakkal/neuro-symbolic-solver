@@ -11,13 +11,16 @@ theories. Candidate axioms are generated combinatorially, filtered by the
 conflicts are resolved by an **LLM judge** through a batched cascade
 selection.
 
+The NL→FOL translation is performed with **`teaislife/Qwen3-4B-nl2fol`**,
+a 4B instruction-tuned model fine-tuned to emit Prover9 syntax.
+
 ## How it works
 
 ```
  claim DAG (JSON)
        |
        v
- [fol.nl2fol]        translate each claim into FOL (local LLM, batched, retries)
+ [fol.nl2fol]        translate each claim into FOL (local LLM: teaislife/Qwen3-4B-nl2fol, batched, retries)
        |
        v
  [fol.normalization] decompose complex atoms / Skolemize existential binders
@@ -57,7 +60,7 @@ neuro-symbolic-solver/
         │   └── constants.py    #   constant-pair classification (SAME_ENTITY/UNRELATED)
         ├── fol/                # first-order logic layer
         │   ├── dag.py          #   claim-DAG JSON validation
-        │   ├── nl2fol.py       #   NL -> FOL translation with a local LLM
+        │   ├── nl2fol.py       #   NL -> FOL translation with a local LLM (teaislife/Qwen3-4B-nl2fol)
         │   ├── extraction.py   #   predicate/constant extraction, cannot links
         │   ├── profiles.py     #   per-signature and per-constant profiles
         │   └── normalization_new.py  # atom decomposition + Skolemization
@@ -113,8 +116,9 @@ from neuro_symbolic_solver.llm.llm_judge import LLMJudge
 from neuro_symbolic_solver.fol.nl2fol import translate_dag
 from neuro_symbolic_solver.axioms.construction import build_bridge_axioms
 
-# 1. Load the translation model and the judge model
-model_id = "your-favorite-instruct-model"
+# 1. Load the translation model (teaislife/Qwen3-4B-nl2fol, emits Prover9 syntax)
+#    and the judge model
+model_id = "teaislife/Qwen3-4B-nl2fol"
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 judge = LLMJudge(model_id, load_in_4bit=True)
@@ -155,6 +159,8 @@ print(axioms_by_dag[0])
 
 ## Notes
 
+- The NL→FOL translation uses **`teaislife/Qwen3-4B-nl2fol`**, a 4B
+  instruction-tuned model fine-tuned to emit Prover9 syntax.
 - The LLM layers expect any Hugging Face causal LM with a chat template;
   4-bit quantization (NF4) requires `bitsandbytes`
   (`pip install .[quantization]`).
