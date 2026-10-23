@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuro-symbolic-solver"
+version = "0.1.0"
+description = "Neuro-symbolic pipeline aligning first-order logic theories: lexical matching, candidate bridge-axiom generation, Prover9 filtering and LLM cascade selection."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "Project author" }]
+keywords = ["first-order-logic", "theorem-proving", "prover9", "llm", "alignment", "neuro-symbolic"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "rapidfuzz",
+    "nltk>=3.8",
+    "torch",
+    "transformers",
+    "accelerate",
+]
+
+[project.optional-dependencies]
+quantization = ["bitsandbytes"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

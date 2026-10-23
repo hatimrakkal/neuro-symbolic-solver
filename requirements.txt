@@ -1,0 +1,11 @@
+# Core dependencies of the neuro-symbolic-solver pipeline.
+# Install with:  pip install -r requirements.txt
+
+rapidfuzz          # Levenshtein similarity used by the lexical layer
+nltk>=3.8          # FOL parsing (nltk.sem.logic) and WordNet antonyms
+torch              # model inference for translation and LLM judging
+transformers       # Hugging Face model/tokenizer loading
+accelerate         # required by device_map="auto"
+
+# Optional: 4-bit (NF4) quantization for LLMJudge(load_in_4bit=True)
+# bitsandbytes
