@@ -11,7 +11,7 @@ theories. Candidate axioms are generated combinatorially, filtered by the
 conflicts are resolved by an **LLM judge** through a batched cascade
 selection.
 
-The NL→FOL translation is performed with **`teaislife/Qwen3-4B-nl2fol`**,
+The NL2FOL translation is performed with **`teaislife/Qwen3-4B-nl2fol`**,
 a 4B instruction-tuned model fine-tuned to emit Prover9 syntax.
 
 ## How it works
@@ -159,7 +159,7 @@ print(axioms_by_dag[0])
 
 ## Notes
 
-- The NL→FOL translation uses **`teaislife/Qwen3-4B-nl2fol`**, a 4B
+- The NL2FOL translation uses **`teaislife/Qwen3-4B-nl2fol`**, a 4B
   instruction-tuned model fine-tuned to emit Prover9 syntax.
 - The LLM layers expect any Hugging Face causal LM with a chat template;
   4-bit quantization (NF4) requires `bitsandbytes`
