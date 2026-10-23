@@ -121,7 +121,7 @@ from neuro_symbolic_solver.axioms.construction import build_bridge_axioms
 model_id = "teaislife/Qwen3-4B-nl2fol"
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto")
 tokenizer = AutoTokenizer.from_pretrained(model_id)
-judge = LLMJudge(model_id, load_in_4bit=True)
+judge = LLMJudge("your_favorite_small_LLM_as_a_judge", load_in_4bit=True)
 
 # 2. A claim DAG as a JSON string:
 #    {"label": "...", "steps": [{"claim_id": "c1", "claim": "...", "parents": []}, ...]}
