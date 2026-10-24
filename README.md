@@ -83,7 +83,7 @@ Requires **Python 3.9+** and a local [Prover9](https://www.cs.unm.edu/~mccune/pr
 installation.
 
 ```bash
-git clone https://github.com/<your-account>/neuro-symbolic-solver.git
+git clone https://github.com/hatimrakkal/neuro-symbolic-solver.git
 cd neuro-symbolic-solver
 
 python -m venv .venv && source .venv/bin/activate
